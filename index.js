@@ -1,4 +1,4 @@
-import { arrayPerso } from './personajes.js';
+import { arrayPerso } from './src/personajes.js';
 
 console.log('elena'); //TODO:
 console.log(arrayPerso); //TODO:
@@ -15,7 +15,7 @@ export function renderCards() {
     characterCard.innerHTML = `
 			<div class="card character__card">
 					<img
-							src="./img/${character.img}.jpg"
+							src="./src/img/${character.img}.jpg"
 							alt="Nombre y familia del personaje"
 							class="character__picture card-img-top img-${character.img}"
 					/>
@@ -23,7 +23,7 @@ export function renderCards() {
 							<h2 class="character__name card-title h4">
 									${character.name} ${character.family}
 							</h2>
-							<div class="character__info thumbs-">
+							<div class="character__info thumbs">
 									<ul class="list-unstyled">
 											<li>Edad: ${character.age} años</li>
 											<li>
