@@ -1,9 +1,12 @@
-const JaimeLannister = new Luchador('Jaime', 'Lanniester', 34, 'espada', 7);
+import { Personaje } from './Personaje.js';
 
-const DaenerysTargaryen = new Luchador(
-  'Daenerys',
-  'Targaryen',
-  16,
-  'dragón',
-  9
-);
+export class Luchador extends Personaje {
+  constructor(name, family, age, arma, destreza, img, type) {
+    super(name, family, age, img, type);
+    this.arma = arma;
+    this.destreza = destreza;
+  }
+  speak() {
+    console.log('Primero pego y luego pregunto');
+  }
+}

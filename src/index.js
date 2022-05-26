@@ -1,55 +1,93 @@
-class Personaje {
-  constructor(name, family, age) {
-    this.name = name;
-    this.family = family;
-    this.age = age;
-    this.status = true;
-    this.serie = 'Juego de Tronos';
-  }
-  speak() {
-    console.log(`Hello`);
-  }
-  die() {}
+import { arrayPerso } from './personajes.js';
+
+console.log('elena'); //TODO:
+console.log(arrayPerso); //TODO:
+
+export function renderCards() {
+  const characterList = document.querySelector('.characters-list');
+  document.querySelector('.col').remove();
+
+  arrayPerso.forEach((character) => {
+    const characterCard = document.createElement('li');
+    characterCard.classList.add('character', 'col');
+    console.log(character);
+
+    characterCard.innerHTML = `
+			<div class="card character__card">
+					<img
+							src="./img/${character.img}.jpg"
+							alt="Nombre y familia del personaje"
+							class="character__picture card-img-top img-${character.img}"
+					/>
+					<div class="card-body">
+							<h2 class="character__name card-title h4">
+									${character.name} ${character.family}
+							</h2>
+							<div class="character__info thumbs-">
+									<ul class="list-unstyled">
+											<li>Edad: ${character.age} años</li>
+											<li>
+													Estado: ${showStatusCharacter(character.isAlive)}
+													
+											</li>
+									</ul>
+							</div>
+							<div class="character__overlay">
+									${showCharacterInfo(character)}
+							<div class="character__actions">
+								<button id="speakButton" class="character__action btn">habla</button>
+								<button id="dieButton" class="character__action btn" onclick= "${() =>
+                  onClickDie(character)}" >muere</button>
+							</div>
+					</div>
+			</div>
+			<i class="emoji"></i>
+	</div>
+    `;
+    characterList.appendChild(characterCard);
+  });
 }
 
-class Rey extends Personaje {
-  constructor(name, family, age, años_reinado) {
-    super(name, family, age);
-    this.años_reinado = años_reinado;
+renderCards();
+
+function showCharacterInfo(character) {
+  if (character.type === 'rey') {
+    return `<ul class="list-unstyled">
+                  <li>Años de reinado: ${character.años_reinado}</li>
+			</ul>`;
   }
-  speak() {
-    console.log('Vais a morir todos');
+  if (character.type === 'asesor') {
+    return `<ul class="list-unstyled">
+                  <li>Personaje al que asesora: ${character.personaje_asesora}</li>
+			</ul>`;
+  }
+  if (character.type === 'escudero') {
+    return `<ul class="list-unstyled">
+                  <li>Personaje al que sirve: ${character.personaje_sirve}
+    			<li>Grado de pelotismo: ${character.pelotismo}</li>
+			</ul>`;
+  }
+  if (character.type === 'luchador') {
+    return `<ul class="list-unstyled">
+                  <li>Arma: ${character.arma}
+    			<li>Destreza: ${character.destreza}</li>
+			</ul>`;
   }
 }
 
-class Luchador extends Personaje {
-  constructor(name, family, age, arma, destreza) {
-    super(name, family, age);
-    this.arma = arma;
-    this.destreza = destreza;
+function showStatusCharacter(isAlive) {
+  if (isAlive) {
+    return `👍`;
   }
-  speak() {
-    console.log('Primero pego y luego pregunto');
+  if (!isAlive) {
+    return `👎`;
   }
 }
 
-class Asesor extends Personaje {
-  constructor(name, family, age, personaje_asesora) {
-    super(name, family, age);
-    this.personaje_asesora = personaje_asesora;
-  }
-  speak() {
-    console.log('No sé por qué, pero creo que voy a morir pronto');
-  }
+function onClickDie(character) {
+  //character.die();
+  console.log('muerte');
 }
 
-class Escudero extends Personaje {
-  constructor(name, family, age, personaje_sirve, pelotismo) {
-    super(name, family, age);
-    this.personaje_sirve = personaje_sirve;
-    this.pelotismo = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; //se puede cambiar??
-  }
-  speak() {
-    console.log('Soy un loser');
-  }
-}
+//const dieButton = document.getElementById('dieButton');
+//dieButton.addEventListener('click', () => onClickDie());
